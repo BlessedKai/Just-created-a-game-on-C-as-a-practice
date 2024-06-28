@@ -1,0 +1,51 @@
+using System;
+using System.Threading;
+
+namespace project
+{
+    class Animation()
+    {
+           public void anime (){
+            
+     Console.CursorVisible = false;
+        int delay = 200;
+        int loopCount = 5; // Количество повторений анимации
+
+        string[] frames = new string[]
+        {
+            @" O          O
+ /|\        /|\
+/ \        / \ ",
+
+            @" O/        \O
+/|          |\
+/ \        / \ ",
+
+            @" O          O
+/|\        /|\
+/ \        / \ ",
+
+            @" O\        /O
+/|          |\
+/ \        / \ "
+        };
+
+        for (int i = 0; i < loopCount; i++)
+        {
+            foreach (string frame in frames)
+            {
+                Console.Clear();
+                Console.WriteLine(frame);
+                Thread.Sleep(delay);
+            }
+        }
+
+        Console.Clear();
+        Console.WriteLine("Анимация завершена!");
+        Console.CursorVisible = true; // Включаем курсор снова
+    }
+           }
+    
+    
+    
+}
