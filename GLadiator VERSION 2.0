@@ -1,0 +1,175 @@
+using System;
+
+namespace project
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            ES es = new ES();
+            Animation animation = new Animation();
+
+            Weapon Mech = new Weapon();
+            Mech.Damage = 15;
+            byte[] bebr = { 0, 1, 1, 1, 1 };
+            Mech.MissChance = bebr;
+
+            Weapon Trezub = new Weapon();
+            Trezub.Damage = 25;
+            byte[] bebr2 = { 0, 1, 1, 1 };
+            Trezub.MissChance = bebr2;
+
+            Weapon Kastet = new Weapon();
+            Kastet.Damage = 10;
+            byte[] bebr3 = { 0, 1, 1, 1, 1, 1, 1, 1, 1, 1 };
+            Kastet.MissChance = bebr3;
+
+            Gladiator Glebatron = new Gladiator();
+            Glebatron.HP = 100;
+
+            Gladiator Enemy = new Gladiator();
+            Enemy.HP = 100;
+            string Trapper = "Вражина";
+            Enemy.name = Trapper;
+
+            Weapon EnemyWeapon = new Weapon();
+            EnemyWeapon.Damage = 15;
+            byte[] bebr4 = { 0, 1, 1 };
+            EnemyWeapon.MissChance = bebr4;
+
+            int answer;
+            string answer2;
+
+            es.PrintLine("Приветствую вас в новой версии игры Гладиаторы", ConsoleColor.Red);
+            es.PrintLine("Удачной игры вам!", ConsoleColor.DarkRed);
+
+            es.PrintLine("1-Начать игру\n2-Авторы:\n3-Выход", ConsoleColor.DarkBlue);
+
+            while (true)
+            {
+                string input = Console.ReadLine();
+
+                if (int.TryParse(input, out answer))
+                {
+                    if (answer == 2)
+                    {
+                        Console.Clear();
+                        es.PrintLine("Авторы: Глеб Довбуш и Белг Шубвод", ConsoleColor.White);
+                        es.PrintLine("1-Вернуться\n2-Выйти", ConsoleColor.White);
+                        int answer3;
+                        string input2 = Console.ReadLine();
+                        if (int.TryParse(input2, out answer3))
+                        {
+                            if (answer3 == 1)
+                            {
+                                es.PrintLine("1-Начать игру\n2-Авторы:\n3-Выход", ConsoleColor.White);
+                                continue;
+                            }
+                            else if (answer3 == 2)
+                            {
+                                Environment.Exit(0);
+                            }
+                            else
+                            {
+                                es.PrintLine("ОШИБКА!!!!!!!!", ConsoleColor.Red);
+                            }
+                        }
+                    }
+                    else if (answer == 1)
+                    {
+                        Console.Clear();
+                        es.PrintLine("Создание персонажа", ConsoleColor.DarkCyan);
+                        es.PrintLine("Введите имя гладиатора", ConsoleColor.Black);
+                        string Names = Console.ReadLine();
+                        Glebatron.name = Names;
+                        Console.Clear();
+                        es.PrintLine("Выберете оружие ", ConsoleColor.Blue);
+                        es.PrintLine("1-Меч 9 трэпорей\n2-ТриплДабл свэгозубец\n3-Фистинг Стет\n", ConsoleColor.Blue);
+                        answer2 = Console.ReadLine();
+
+                        Weapon chosenWeapon = null;
+
+                        if (answer2 == "1")
+                        {
+                            chosenWeapon = Mech;
+                        }
+                        else if (answer2 == "2")
+                        {
+                            chosenWeapon = Trezub;
+                        }
+                        else if (answer2 == "3")
+                        {
+                            chosenWeapon = Kastet;
+                        }
+                        else
+                        {
+                            es.PrintLine("Ошибка введите число от 1-3", ConsoleColor.Red);
+                            continue;
+                        }
+
+                        Console.Clear();
+                        es.PrintLine("БОЙ НАЧИНАЕТСЯ", ConsoleColor.Magenta);
+                        while (Glebatron.HP > 0 && Enemy.HP > 0)
+                        {
+                            es.PrintLine("Атаковать-1\nВыйти-2", ConsoleColor.Yellow);
+                            string action = Console.ReadLine();
+                            if (action == "1")
+                            {
+                                // Атака игрока
+                                animation.anime();
+                                int playerAttackMultiplier = chosenWeapon.Range(1, 4);
+                                int playerDamage = chosenWeapon.DamageGive(playerAttackMultiplier);
+                                int playerMiss = chosenWeapon.CheckMiss();
+                                int finalPlayerDamage = playerDamage * playerMiss;
+                                if (finalPlayerDamage == 0)
+                                {
+                                    es.PrintLine("Вы промахнулись", ConsoleColor.Red);
+                                }
+                                else
+                                {
+                                    Enemy.DamageTake(finalPlayerDamage);
+                                }
+
+                                // Атака врага
+                                int enemyAttackMultiplier = EnemyWeapon.Range(1, 4);
+                                int enemyDamage = EnemyWeapon.DamageGive(enemyAttackMultiplier);
+                                int enemyMiss = EnemyWeapon.CheckMiss();
+                                int finalEnemyDamage = enemyDamage * enemyMiss;
+                                if (finalEnemyDamage == 0)
+                                {
+                                    es.PrintLine("Враг промахнулся", ConsoleColor.Green);
+                                }
+                                else
+                                {
+                                    Glebatron.DamageTake(finalEnemyDamage);
+                                }
+                            }
+                            else if (action == "2")
+                            {
+                                Environment.Exit(0);
+                            }
+                            else
+                            {
+                                es.PrintLine("Ошибка вернитесь к вводу", ConsoleColor.Red);
+                            }
+                            continue;
+                        }
+                    }
+                    else if (answer == 3)
+                    {
+                        Environment.Exit(0);
+                    }
+                    else
+                    {
+                        es.PrintLine("Ошибка: введите заново", ConsoleColor.White);
+                    }
+                }
+                else
+                {
+                    es.PrintLine("Ошибка!", ConsoleColor.White);
+                }
+            }
+        }
+    }
+}
+
