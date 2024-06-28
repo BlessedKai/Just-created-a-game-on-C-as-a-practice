@@ -1,0 +1,47 @@
+using System;
+using System.Threading;
+
+namespace project
+{
+    class ES
+    {
+        public void PrintLine(string a)
+        {
+            Console.WriteLine(a);
+        }
+
+        public void PrintLine(string a, ConsoleColor color)
+        {
+            Console.ForegroundColor = color;
+            Console.WriteLine(a);
+            Console.ResetColor();
+        }
+
+        public void Print(string a, ConsoleColor color)
+        {
+            Console.ForegroundColor = color;
+            Console.Write(a);
+            Console.ResetColor();
+        }
+
+        public void PrintNum(int a)
+        {
+            Console.Write(a);
+        }
+
+        public void PrintLineNum(int a)
+        {
+            Console.WriteLine(a);
+        }
+    }
+}
+
+
+
+
+
+
+
+
+
+
