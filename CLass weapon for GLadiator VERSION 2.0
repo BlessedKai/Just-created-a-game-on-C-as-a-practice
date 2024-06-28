@@ -1,0 +1,96 @@
+using System;
+using System.Threading;
+
+namespace project{
+
+     class Weapon
+     {
+
+
+        public int Damage ;
+
+        public byte[] MissChance  ;
+
+        public int[] MissChanceEnemy = {};
+
+        public int Range( int a , int b)
+        {
+            Random rand = new Random();
+            int y = rand.Next(a,b);
+            return y;
+
+        }
+
+        public int DamageGive(int a)
+        {
+            
+            return Damage*a;
+        }
+         public  int MissEnemy()
+        {
+          
+            Random random = new Random(); //создаёт класс рандома 
+             
+
+            int x = random.Next(MissChanceEnemy.Length);
+            int y = MissChanceEnemy[x];
+            return  y;
+        }
+
+        
+         
+         public  int  CheckMiss()
+        {
+            
+            Random random = new Random(); //создаёт класс рандома 
+           
+
+            int x = random.Next(MissChance.Length);
+            int y = MissChance[x];
+             return y;
+            
+        }
+
+
+        public void RandomMiss()
+        {
+            MissChanceEnemy = GenerateRandomArray();
+            
+            
+        }
+        static int[] GenerateRandomArray()
+        {
+            int size;
+            Random random = new Random();
+            size = random.Next(2,6);
+            int[] array = new int[size];
+
+            // Заполняем массив нулями
+            for (int i = 0; i < size; i++)
+            {
+                array[i] = 0;
+            }
+
+            // Выбираем количество единиц от 1 до 5
+            int onesCount = random.Next(1, 6);
+
+            // Заполняем массив единицами в случайных позициях
+            for (int i = 0; i < onesCount; i++)
+            {
+                int index;
+                do
+                {
+                    index = random.Next(0, size);
+                } while (array[index] == 1);
+
+                array[index] = 1;
+            }
+
+            return array;
+        }
+
+
+
+     }
+     }
+    
