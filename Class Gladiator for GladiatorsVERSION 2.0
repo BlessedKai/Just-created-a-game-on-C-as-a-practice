@@ -1,0 +1,24 @@
+using System;
+using project;
+
+namespace project
+{
+    class Gladiator
+    {
+        
+        public int HP;
+
+        public string name;
+
+        public void DamageTake(int a)
+        {
+            HP -= a;
+            Console.WriteLine("Здоровье " + name + " равно " + HP);
+        }
+
+        
+      
+
+        
+    }
+}
